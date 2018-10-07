@@ -30,14 +30,4 @@ cp .gitconfig ~
 cp .vimrc ~
 cp .vim/colors/* ~/.vim/colors/
 
-echo "Creating symlinks to config files..."
-rm .zshrc
-ln -s ~/.zshrc
-rm .gitconfig
-ln -s ~/.gitconfig
-rm .vimrc
-ln -s ~/.vimrc
-rm .vim/colors/*
-ln -s ~/.vim/colors/* .vim/colors/
-
 echo "Setup complete!"
