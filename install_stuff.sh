@@ -1,5 +1,8 @@
 #!/bin/bash
+cd "${0%/*}" &> /dev/null
+
 # Install homebrew if it doesn't exist
+echo "Checking for homebrew..."
 brew help &> /dev/null
 if [ $? -eq 1 ]
   then
@@ -10,24 +13,31 @@ else
 fi
 
 # Install latest zsh
+echo "Installing latest zsh"
 brew install zsh
 
 # Install oh-my-zsh
+echo "Installing oh-my-zsh"
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-# Replace .zshrc with git version
+# Replace config files
+echo "Replacing config files"
+[ ! -d "$HOME/.vim" ] && mkdir ~/.vim
+[ ! -d "$HOME/.vim/colors" ] && mkdir ~/.vim/colors
+
 cp .zshrc ~/.zshrc
-
-if [ ! -d "~/.vim" ]
-then 
-    mkdir ~/.vim
-fi
-
-if [ ! -d "~/.vim/colors" ]
-then
-    mkdir ~/.vim/colors
-fi
-
-cp .vim/colors/* ~/.vim/colors/
-cp .vimrc ~
 cp .gitconfig ~
+cp .vimrc ~
+cp .vim/colors/* ~/.vim/colors/
+
+echo "Creating symlinks to config files..."
+rm .zshrc
+ln -s ~/.zshrc
+rm .gitconfig
+ln -s ~/.gitconfig
+rm .vimrc
+ln -s ~/.vimrc
+rm .vim/colors/*
+ln -s ~/.vim/colors/* .vim/colors/
+
+echo "Setup complete!"
