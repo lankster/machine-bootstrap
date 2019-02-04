@@ -19,3 +19,4 @@
 	ci = commit
 	br = branch
 	co = checkout
+        aa = add --all
